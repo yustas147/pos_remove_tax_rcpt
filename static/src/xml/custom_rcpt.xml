@@ -20,5 +20,30 @@
                 
             </table>
          </t>
+         <t t-jquery=".receipt-orderlines" t-operation="replace">
+          <table class='receipt-orderlines'>
+            <colgroup>
+                    <col width='50%' />
+                    <col width='25%' />
+                    <col width='25%' />
+                </colgroup>
+                <tr t-foreach="orderlines" t-as="orderline">
+                    <td>
+                        <t t-esc="orderline.get_product().display_name"/>
+                         <t t-if="orderline.get_discount() > 0">
+                            <div class="pos-disc-font">
+                                With a <t t-esc="orderline.get_discount()"/>% discount
+                            </div>
+                        </t>
+                    </td>
+                    <td class="pos-right-align">
+                        <t t-esc="orderline.get_quantity_str_with_unit()"/>
+                    </td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency(orderline.get_product().displayed_price)"/>
+                    </td>
+                </tr>
+            </table>
+         </t>
      </t>
 </templates>        
